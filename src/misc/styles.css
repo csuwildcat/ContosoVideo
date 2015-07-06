@@ -13,10 +13,7 @@ body {
     perspective: 1000px;
 }
 video {
-    width:80%;
-    border: solid 1px white;
-    margin: 20px;
-    box-shadow: 1px 1px 1px 5px #ecf0f1;
+    width:100%;
 }
 h1 {
     font-family: "Segoe UI Light";
@@ -52,9 +49,16 @@ h1 {
     padding: 0;
     list-style: none;
     perspective: 1000px;
+    -webkit-transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
     -webkit-transform: translate(-55%, -50%) rotateY(-34deg);
     transform: translate(-55%, -50%) rotateY(-34deg);
 }
+
+    #videos[play-video] {
+        -webkit-transform: translate(-50%, -50%) rotateY(0deg);
+        transform: translate(-50%, -50%) rotateY(0deg);
+    }
 
 #videos li {
     display: block;
@@ -63,85 +67,135 @@ h1 {
     height: 100%;
     background: #fff;
     opacity: 0;
-    transform-style: preserve-3d;
+    cursor: pointer;
+    z-index: 0;
     -webkit-transition: transform 1s cubic-bezier(.26,.89,.66,1.18), opacity 1s ease;
     transition: transform 1s cubic-bezier(.26,.89,.66,1.18), opacity 1s ease;
     -webkit-transform: scale(0.1) translate(27%, 13.5%);
     transform: scale(0.1) translate(27%, 13.5%);
 }
+    
+    #videos[play-video] li {
+        cursor: default;
+    }
+    
+    #videos[play-video] li:not([playing]) {
+        opacity: 0;
+    }
+    
+    #videos li[playing], #videos li[playing]:hover {
+        z-index: 1;
+        -webkit-transform: scale(1) translate(0, 0) !important;
+        transform: scale(1) translate(0, 0) !important;
+    }
+    
+    #videos li:nth-child(2) {
+        -webkit-transition-delay: 0.4s;
+        transition-delay: 0.6s;
+        -webkit-transform: scale(0.1) translate(135%, 13.5%);
+        transform: scale(0.1) translate(135%, 13.5%);
+    }
+    
+    #videos li:nth-child(3) {
+        -webkit-transition-delay: 0.6s;
+        transition-delay: 0.9s;
+        -webkit-transform: scale(0.1) translate(27%, 121.5%);
+        transform: scale(0.1) translate(27%, 121.5%);
+        -webkit-animation-delay: 1.2s;
+        animation-delay: 1.2s;
+    }
+    
+    #videos li:nth-child(4) {
+        -webkit-transition-delay: 0.2s;
+        transition-delay: 0.3s;
+        -webkit-transform: scale(0.1) translate(135%, 121.5%);
+        transform: scale(0.1) translate(135%, 121.5%);
+    }
+    
+    body[intro] #videos li {
+       opacity: 1;
+    }
+    
+    body[intro] #videos li:nth-child(1) {
+        -webkit-transform: scale(0.48) translate(-54%, -54%);
+        transform: scale(0.48) translate(-54%, -54%);
+    }
+    
+    body[intro] #videos li:nth-child(2) {
+        -webkit-transform: scale(0.48) translate(54%, -54%);
+        transform: scale(0.48) translate(54%, -54%);
+    }
+    
+    body[intro] #videos li:nth-child(3) {
+        -webkit-transform: scale(0.48) translate(-54%, 54%);
+        transform: scale(0.48) translate(-54%, 54%);
+    }
+    
+    body[intro] #videos li:nth-child(4) {
+        -webkit-transform: scale(0.48) translate(54%, 54%);
+        transform: scale(0.48) translate(54%, 54%);
+    }
+    
+    body[intro="complete"] #videos li {
+        -webkit-transition-timing-function: ease;
+        -webkit-transition-duration: 0.4s;
+        -webkit-transition-delay: 0s;
+        transition-timing-function: ease;
+        transition-duration: 0.4s;
+        transition-delay: 0s;
+    }
+    
+    body[intro="complete"] #videos li:nth-child(1):hover {
+        -webkit-transform: scale(0.55) translate(-54%, -54%);
+        transform: scale(0.55) translate(-54%, -54%);
+    }
+    
+    body[intro="complete"] #videos li:nth-child(2):hover {
+        -webkit-transform: scale(0.55) translate(54%, -54%);
+        transform: scale(0.55) translate(54%, -54%);
+    }
+    
+    body[intro="complete"] #videos li:nth-child(3):hover {
+        -webkit-transform: scale(0.55) translate(-54%, 54%);
+        transform: scale(0.55) translate(-54%, 54%);
+    }
+    
+    body[intro="complete"] #videos li:nth-child(4):hover {
+        -webkit-transform: scale(0.55) translate(54%, 54%);
+        transform: scale(0.55) translate(54%, 54%);
+    }
 
-#videos li:nth-child(2) {
-    -webkit-transition-delay: 0.4s;
-    transition-delay: 0.6s;
-    -webkit-transform: scale(0.1) translate(135%, 13.5%);
-    transform: scale(0.1) translate(135%, 13.5%);
+
+#videos li > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: blue;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
-#videos li:nth-child(3) {
-    -webkit-transition-delay: 0.6s;
-    transition-delay: 0.9s;
-    -webkit-transform: scale(0.1) translate(27%, 121.5%);
-    transform: scale(0.1) translate(27%, 121.5%);
-    -webkit-animation-delay: 1.2s;
-    animation-delay: 1.2s;
+    
+    #videos li[playing] > div {
+        opacity: 1;
+    }
+
+#close_video {
+    opacity: 0;
+    position: absolute;
+    right: 0.6em;
+    top: 0.6em;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    border-radius: 3em;
+    border: 0.2em solid;
+    cursor: pointer;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
-#videos li:nth-child(4) {
-    -webkit-transition-delay: 0.2s;
-    transition-delay: 0.3s;
-    -webkit-transform: scale(0.1) translate(135%, 121.5%);
-    transform: scale(0.1) translate(135%, 121.5%);
-}
-
-body[windows-logo] #videos li {
-   opacity: 1;
-}
-
-body[windows-logo] #videos li:nth-child(1) {
-    -webkit-transform: scale(0.48) translate(-54%, -54%);
-    transform: scale(0.48) translate(-54%, -54%);
-}
-
-body[windows-logo] #videos li:nth-child(2) {
-    -webkit-transform: scale(0.48) translate(54%, -54%);
-    transform: scale(0.48) translate(54%, -54%);
-}
-
-body[windows-logo] #videos li:nth-child(3) {
-    -webkit-transform: scale(0.48) translate(-54%, 54%);
-    transform: scale(0.48) translate(-54%, 54%);
-}
-
-body[windows-logo] #videos li:nth-child(4) {
-    -webkit-transform: scale(0.48) translate(54%, 54%);
-    transform: scale(0.48) translate(54%, 54%);
-}
-
-body[windows-logo="complete"] #videos li {
-    -webkit-transition-timing-function: ease;
-    -webkit-transition-duration: 0.4s;
-    -webkit-transition-delay: 0s;
-    transition-timing-function: ease;
-    transition-duration: 0.4s;
-    transition-delay: 0s;
-}
-
-body[windows-logo] #videos li:nth-child(1):hover {
-    -webkit-transform: scale(0.55) translate(-54%, -54%);
-    transform: scale(0.55) translate(-54%, -54%);
-}
-
-body[windows-logo] #videos li:nth-child(2):hover {
-    -webkit-transform: scale(0.55) translate(54%, -54%);
-    transform: scale(0.55) translate(54%, -54%);
-}
-
-body[windows-logo] #videos li:nth-child(3):hover {
-    -webkit-transform: scale(0.55) translate(-54%, 54%);
-    transform: scale(0.55) translate(-54%, 54%);
-}
-
-body[windows-logo] #videos li:nth-child(4):hover {
-    -webkit-transform: scale(0.55) translate(54%, 54%);
-    transform: scale(0.55) translate(54%, 54%);
+#videos[play-video] ~ #close_video {
+    opacity: 1;
 }
