@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function setupVideo(url) {
-  var context = new Custom.di.CustomContext();
-  var player = new MediaPlayer(context);
   player.startup();
   player.attachView(document.querySelector('#videoplayer'));
   player.setAutoPlay(true);
