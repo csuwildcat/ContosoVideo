@@ -11,6 +11,9 @@
         <symbol id="close-icon" viewBox="0 0 1024 1024">
         	<path class="path1" d="M512 0c-282.752 0-512 229.248-512 512s229.248 512 512 512 512-229.248 512-512-229.248-512-512-512zM765.248 674.752l-90.496 90.496-162.752-162.752-162.752 162.752-90.496-90.496 162.752-162.752-162.752-162.752 90.496-90.496 162.752 162.752 162.752-162.752 90.496 90.496-162.752 162.752 162.752 162.752z" fill="inherit"></path>
         </symbol>
+        <symbol id="check" viewBox="0 0 32 32">
+          <path fill="inherit" d="M27 4l-15 15-7-7-5 5 12 12 20-20z"></path>
+        </symbol>
       </defs>
     </svg>
     
@@ -30,23 +33,51 @@
     
     <ul id="videos">
       <li video-id="0">
+        <h2>Basic</h2>
         <div>
           <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+          <ul>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+          </ul>
         </div>
       </li>
       <li video-id="1">
+        <h2>VOD</h2>
         <div>
           <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+          <ul>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+          </ul>
         </div>
       </li>
       <li video-id="2">
+        <h2>Live</h2>
         <div>
           <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+          <ul>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+          </ul>
         </div>
       </li>
       <li video-id="3">
+        <h2>DRM</h2>
         <div>
           <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+          <ul>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>HTML 5 Player</span></li>
+            <li><span><svg><use xlink:href="#check"></use></svg>Playback controls</span></li>
+          </ul>
         </div>
       </li>
     </ul>
@@ -77,8 +108,9 @@
         document.addEventListener('transitionend', introComplete);
         document.addEventListener('webkitTransitionEnd', introComplete);
         
-        Array.prototype.forEach.call(document.querySelectorAll('#videos li'), function(li){
+        Array.prototype.forEach.call(document.querySelectorAll('#videos > li'), function(li){
           li.addEventListener('click', function(e){
+            e.preventDefault();
             if (!li.parentNode.hasAttribute('play-video')) {
               li.setAttribute('playing', '');
               li.parentNode.setAttribute('play-video', li.getAttribute('video-id'));
@@ -90,10 +122,12 @@
         
         closeVideo.addEventListener('click', function(e){
           var li = document.querySelector('[playing]');
-          li.querySelector('video').pause();
-          li.removeAttribute('playing');
-          var ul = document.querySelector('[play-video]');
-          ul.removeAttribute('play-video');
+          if (li) {
+            li.querySelector('video').pause();
+            li.removeAttribute('playing');
+            var ul = document.querySelector('[play-video]');
+            ul.removeAttribute('play-video');
+          }
         });
       
       })();
