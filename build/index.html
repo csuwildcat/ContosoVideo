@@ -110,8 +110,8 @@
         
         Array.prototype.forEach.call(document.querySelectorAll('#videos > li'), function(li){
           li.addEventListener('click', function(e){
-            e.preventDefault();
             if (!li.parentNode.hasAttribute('play-video')) {
+              e.preventDefault();
               li.setAttribute('playing', '');
               li.parentNode.setAttribute('play-video', li.getAttribute('video-id'));
             }
